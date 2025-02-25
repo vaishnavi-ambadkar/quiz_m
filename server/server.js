@@ -75,25 +75,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(
-  cors({
-    origin: "*", // Change "*" to your frontend URL if needed
-    credentials: true,
-  })
-);
-
+app.use(cors()); // 🔓 Allow all origins (for debugging)
 app.use(express.json());
 
-// Connect to MongoDB
+// ✅ Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => {
-    console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1); // Exit the server if DB connection fails
-  });
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Define Question Schema
 const questionSchema = new mongoose.Schema({
   id: String,
   text: String,
@@ -103,50 +93,51 @@ const questionSchema = new mongoose.Schema({
 
 const Question = mongoose.model("Question", questionSchema);
 
-// Function to insert questions **only if they don't exist**
-const insertQuestions = async () => {
-  const count = await Question.countDocuments();
-  if (count > 0) {
-    console.log("✅ Questions already exist. Skipping insertion.");
-    return;
+// ✅ API to Fetch Questions
+app.get("/questions", async (req, res) => {
+  try {
+    const questions = await Question.find();
+    if (questions.length === 0) {
+      return res.status(404).json({ message: "⚠️ No questions found in database!" });
+    }
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ error: "❌ Failed to fetch questions", message: error.message });
   }
+});
 
-  const questions = [
-    { id: "q1", text: "What comes next in the sequence: 1, 4, 9, 16, __?", answers: ["20", "25", "30"], correct: "25" },
-    { id: "q2", text: "A clock shows 3:15. What is the angle between the hour and minute hands?", answers: ["30°", "7.5°", "12°"], correct: "7.5°" },
-    { id: "q3", text: "If a rooster lays an egg on top of a roof, which way does it roll?", answers: ["Left", "It doesn't", "Down"], correct: "It doesn't" },
-    { id: "q4", text: "What has one eye but cannot see?", answers: ["Storm", "Needle", "Hurricane"], correct: "Needle" },
-    { id: "q5", text: "What is the next prime number after 11?", answers: ["12", "13", "17"], correct: "13" },
-    { id: "q6", text: "Which number completes the pattern? 8, 27, 64, __, 216", answers: ["100", "125", "144"], correct: "125" },
-    { id: "q7", text: "A bat and a ball cost $1.10 together. The bat costs $1.00 more than the ball. How much does the ball cost?", answers: ["10 cents", "5 cents", "1 cent"], correct: "5 cents" },
-    { id: "q8", text: "What is always coming but never arrives?", answers: ["Future", "Tomorrow", "Sunrise"], correct: "Tomorrow" },
-    { id: "q9", text: "Which letter is next in the sequence: J, F, M, A, M, __?", answers: ["J", "F", "S"], correct: "J" },
-    { id: "q10", text: "I have branches, but no trunk or leaves. What am I?", answers: ["Road", "Bank", "River"], correct: "Bank" },
-  ];
+// ✅ Debugging API to Check DB Connection
+app.get("/test-db", async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json({ message: "✅ DB Connection Successful", count: questions.length, questions });
+  } catch (error) {
+    res.status(500).json({ message: "❌ Database Connection Failed", error: error.message });
+  }
+});
 
-  await Question.insertMany(questions);
-  console.log("✅ Questions inserted successfully!");
-};
+// ✅ API to Insert Questions (Run this once, then comment it out)
+app.get("/insert-questions", async (req, res) => {
+  try {
+    await Question.deleteMany({}); // Clear old data
 
-// Insert questions only if needed
-insertQuestions();
+    const questions = [
+      { id: "q1", text: "What comes next in the sequence: 1, 4, 9, 16, __?", answers: ["20", "25", "30"], correct: "25" },
+      { id: "q2", text: "A clock shows 3:15. What is the angle between the hour and minute hands?", answers: ["30°", "7.5°", "12°"], correct: "7.5°" },
+      { id: "q3", text: "If a rooster lays an egg on top of a roof, which way does it roll?", answers: ["Left", "It doesn't", "Down"], correct: "It doesn't" }
+    ];
 
-// API Routes
+    await Question.insertMany(questions);
+    res.json({ message: "✅ Questions inserted successfully!", count: questions.length });
+  } catch (error) {
+    res.status(500).json({ message: "❌ Failed to insert questions", error: error.message });
+  }
+});
+
+// ✅ Root Route
 app.get("/", (req, res) => {
   res.json({ message: "✅ Server is running" });
 });
 
-// Fetch all questions
-app.get("/questions", async (req, res) => {
-  try {
-    const questions = await Question.find();
-    res.json(questions);
-  } catch (error) {
-    console.error("❌ Error fetching questions:", error);
-    res.status(500).json({ error: "Failed to fetch questions" });
-  }
-});
-
-// Start the server
+// ✅ Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
