@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Question from "./Question.jsx";
 import Summary from "./Summary.jsx";
+ axios.defaults.withCredentials=true;
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
