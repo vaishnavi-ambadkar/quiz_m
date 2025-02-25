@@ -1,0 +1,156 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    color: #ebe7ef;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 2rem;
+    background: rgb(219, 212, 185);
+    background: linear-gradient(90deg,
+            rgb(189, 183, 159) 0%,
+            rgba(212, 205, 176, 1) 48%,
+            rgba(216, 208, 182, 1) 100%);
+}
+
+.header {
+    font-family: "Cabin Sketch", sans-serif;
+    color: white;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 1);
+    font-size: 40px;
+}
+
+.text-shadow {
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 1);
+}
+
+.question-text {
+    font-family: "Cabin Sketch", sans-serif;
+    font-size: 24px;
+    text-shadow: 3px 3px 8px rgb(255, 255, 255);
+    color: black;
+}
+
+.answer {
+    font-family: "Open Sans", sans-serif;
+}
+
+#question progress {
+    width: 50%;
+    height: 0.5rem;
+    border-radius: 24px;
+    background: rgb(6 182 212);
+    margin: 0;
+}
+
+#question progress::-webkit-progress-bar {
+    background: rgb(21 94 117);
+    border-radius: 24px;
+}
+
+#question progress::-webkit-progress-value {
+    background: rgb(6 182 212);
+    border-radius: 24px;
+}
+
+#question progress.answered {
+    background: rgb(6 182 212);
+}
+
+#question progress.answered::-webkit-progress-value {
+    background: rgb(6 182 212);
+}
+
+#question progress.answered::-webkit-progress-bar {
+    background: rgb(21 94 117);
+} */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    color: hsl(0, 5%, 7%); /* Soft charcoal gray for a modern, professional feel */
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 2rem;
+    background: linear-gradient(90deg, #FFEFD5 0%, #FFF1E6 50%, #E6E6FA 100%);
+}
+
+.header {
+    font-family: "Cabin Sketch", sans-serif;
+    color: hwb(0 9% 91%); /* Soft dark gray */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 40px;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.question-text {
+    font-family: "Cabin Sketch", sans-serif;
+    font-size: 24px;
+    text-shadow: 2px 2px 6px #201f1fcc;
+    color: hsl(0, 3%, 6%);
+}
+
+.answer {
+    font-family: "Open Sans", sans-serif;
+}
+
+#question progress {
+    width: 50%;
+    height: 0.5rem;
+    border-radius: 24px;
+    background: #FFA07A; /* Soft warm orange */
+    margin: 0;
+}
+
+#question progress::-webkit-progress-bar {
+    background: #98DDCA; /* Light mint green */
+    border-radius: 24px;
+}
+
+#question progress::-webkit-progress-value {
+    background: #FFA07A;
+    border-radius: 24px;
+}
+
+#question progress.answered {
+    background: #FFD700; /* Pastel golden */
+}
+
+#question progress.answered::-webkit-progress-value {
+    background: #FFD700;
+}
+
+#question progress.answered::-webkit-progress-bar {
+    background: #98DDCA;
+}
