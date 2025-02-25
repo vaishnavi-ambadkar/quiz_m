@@ -11,7 +11,7 @@ export default function Quiz() {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const response = await fetch("http://localhost:5000/questions");
+        const response = await fetch("https://quiz-m-api.vercel.app/questions");
         if (!response.ok) {
           throw new Error("Failed to fetch questions");
         }
