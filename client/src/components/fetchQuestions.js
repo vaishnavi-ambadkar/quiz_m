@@ -1,7 +1,7 @@
 export async function fetchQuestions() {
   try {
     console.log("Fetching questions...");
-    const response = await fetch("http://localhost:5000/questions");
+    const response = await fetch("https://quiz-m-api.vercel.app/questions");
 
     if (!response.ok) {
       throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
