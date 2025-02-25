@@ -7,7 +7,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://quiz-m-frontend-git-main-vaishnavi-ambadkars-projects.vercel.app", // Your frontend URL
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 mongoose
