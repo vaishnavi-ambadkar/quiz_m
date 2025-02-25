@@ -1,3 +1,4 @@
+ axios.defaults.withCredentials=true;
 export async function fetchQuestions() {
   try {
     console.log("Fetching questions...");
