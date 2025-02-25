@@ -1,5 +1,4 @@
- axios.defaults.withCredentials=true;
-export async function fetchQuestions() {
+ export async function fetchQuestions() {
   try {
     console.log("Fetching questions...");
     const response = await fetch("https://quiz-m-api.vercel.app/questions");
