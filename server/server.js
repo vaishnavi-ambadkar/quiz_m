@@ -55,5 +55,9 @@ app.get("/questions", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch questions" });
   }
 });
+app.get("/",(req,res)=>{
+    res.json("Hi");
+})
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
